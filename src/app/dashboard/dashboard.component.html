@@ -1,0 +1,19 @@
+<h3>Wumpus The Game</h3>
+<div *ngIf="!hide_menu">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre del jugador" ngModel>
+  
+      <label for="tablero">Tamaño del tablero</label>
+      <input type="text" id="tablero" name="tablero" placeholder="Dimensiones del tablero" ngModel>
+
+      <label for="pozos">Cantidad de pozos</label>
+      <input type="text" id="pozos" name="pozos" placeholder="Cantidad" ngModel>
+
+      <label for="flechas">Flechas</label>
+      <input type="text" id="flechas" name="flechas" placeholder="Cantidad de flechas" ngModel>
+
+      <input type="submit" value="Submit">
+    </form>
+</div>
+<app-child *ngIf="hide_menu" [incoming_data]="parent_data"></app-child>

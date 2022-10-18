@@ -1,0 +1,123 @@
+.container{
+    display: flex;
+    justify-content: center;
+    padding-top: 20%;
+    color:white;
+}
+td{
+    border:1px solid #cecece;
+    width: 50px;
+    height: 50px;
+}
+button{
+    padding: 10px;
+    background: rgba(0,0,0,0);
+    border-color: white;
+    color:white;
+}
+button:active{
+    background: white;
+    color:black;
+}
+
+div.preview-img{
+    transform:
+    rotateX(51deg)
+    rotateZ(43deg)
+    translateX(60px)
+    translateZ(15px);
+  transform-style: preserve-3d;
+  border-radius: 32px;
+  box-shadow:
+    1px 1px 0 1px #f9f9fb,
+    -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+    28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+  transition:
+    .4s ease-in-out transform,
+    .4s ease-in-out box-shadow;
+    width: 200px;
+    height: 200px;
+    background-image: url('../assets/floor.png');
+}
+
+div.well{
+    transform:
+    rotateX(51deg)
+    rotateZ(43deg);
+  transform-style: preserve-3d;
+  border-radius: 32px;
+  box-shadow:
+    1px 1px 0 1px #f9f9fb,
+    -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+    28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+  transition:
+    .4s ease-in-out transform,
+    .4s ease-in-out box-shadow;
+    width: 200px;
+    height: 200px;
+    background-image: url('../assets/well.png');
+    background-repeat: no-repeat;
+    background-size: 200px 200px;
+}
+
+
+div.preview-img div.front-img{
+    transform:
+    rotatez(90deg)
+    rotatey(90deg)
+    translate3d(-90px,0px,-90px);
+    transform-style: preserve-3d;
+    border-radius: 32px;
+    box-shadow:
+    1px 1px 0 1px #f9f9fb,
+    -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+    28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+  transition:
+    .4s ease-in-out transform,
+    .4s ease-in-out box-shadow;
+    width: 200px;
+    height: 200px;
+    background-image: url('../assets/wall.png');
+    background-repeat: repeat;
+}
+
+div.preview-img div.front-img-empty{
+    transform:
+    rotatez(90deg)
+    rotatey(90deg)
+    translate3d(-90px,0px,-90px);
+    transform-style: preserve-3d;
+    border-radius: 32px;
+    width: 200px;
+    height: 200px;
+}
+
+div.preview-img div.center-img{
+    transform:
+    rotatez(90deg)
+    rotatey(90deg)
+    translate3d(-90px,0px,-200px);
+    transform-style: preserve-3d;
+    border-radius: 32px;
+  transition:
+    .4s ease-in-out transform,
+    .4s ease-in-out box-shadow;
+    width: 200px;
+    height: 200px;
+}
+
+div.preview-img div.center-img img{
+    width: 200px;
+    transform: rotate(-90deg);
+    position: absolute;
+}
+
+div.column table{
+    display: none;
+}
+
+.adventure-log{
+    overflow-y:scroll;
+    overflow-x: visible;
+    height: 100px;
+}
