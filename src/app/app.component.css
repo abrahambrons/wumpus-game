@@ -22,8 +22,8 @@ button:active{
 
 div.preview-img{
     transform:
-    rotateX(51deg)
-    rotateZ(43deg)
+    rotateX(70deg)
+    rotateZ(14deg)
     translateX(60px)
     translateZ(15px);
   transform-style: preserve-3d;
