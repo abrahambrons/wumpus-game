@@ -12,6 +12,7 @@ import { Coordenada } from './coordenada';
   providers: [TableroService]
 })
 export class AppComponent {
+
   title = 'wumpus-game';
   personaje!: Jugador;
   tam_tablero:number = 5;
@@ -30,6 +31,7 @@ export class AppComponent {
     this.crearTablero(this.incoming_data.tablero,this.incoming_data.pozos);
     let coordenada:Coordenada = this.tableroService.colocarJugador(this.tableroService.getTablero(),1,this.incoming_data.tablero);
     this.personaje = new Jugador({posi:coordenada.i,posj:coordenada.j,starti:coordenada.i,startj:coordenada.j,rotacion:0,flechas:this.incoming_data.flechas,nombre:this.incoming_data.nombre});
+    this.tablero.celdas[this.personaje.starti][this.personaje.startj].isExit = true;
     this.adventure_log.push(`Coordenadas Jugador: ${this.personaje.posi} y ${this.personaje.posj}`);
     this.percibir();
   }
@@ -43,6 +45,16 @@ export class AppComponent {
 
   get tablero():Tablero{
     return this.tableroService.getTablero();
+  }
+
+  salir($event: MouseEvent) {
+    if(this.personaje.percepcion.isExit && this.personaje.isGoldTaken){
+      this.adventure_log.push(`${this.personaje.nombre} sale exitoso con el oro en sus manos`);
+      this.personaje.isWon = true;
+    }else{
+      this.adventure_log.push(`${this.personaje.nombre} no tiene el oro aun, no puede salir`);
+    }
+    this.percibir();
   }
 
   percibir(){

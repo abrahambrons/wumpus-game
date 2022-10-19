@@ -6,7 +6,7 @@ export class Jugador {
     posi:number = 0;
     posj:number = 0;
     rotacion:number = 0; //0arriba,1abajo,2izquierda,3derecha
-    percepcion:Celda = {isWell:false, isWind:false,isWumpus:false,isGold:false,isSmelly:false,isPlayer:false};
+    percepcion:Celda = {isWell:false, isWind:false,isWumpus:false,isGold:false,isSmelly:false,isPlayer:false,isExit:false};
     isWallFront:boolean = false;
     flechas:number = 0;
     percibirFlechaWumpus = false;
@@ -39,8 +39,7 @@ export class Jugador {
             this.isGameOver = true;
         }
         if(this.isGoldTaken && this.starti == this.posi && this.startj && this.posj){
-            log_percepcion.push(`${this.nombre} encuentra la salida y se lleva el oro consigo`);
-            this.isWon = true;
+            log_percepcion.push(`${this.nombre} encuentra la salida`);
         }
         return log_percepcion;
     }

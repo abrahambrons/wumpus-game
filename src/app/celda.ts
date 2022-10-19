@@ -5,6 +5,7 @@ export class Celda {
     isWind: boolean = false;
     isGold: boolean = false;
     isPlayer: boolean = false;
+    isExit: boolean = false;
     /**
      *
      */
@@ -13,6 +14,6 @@ export class Celda {
     }
 
     toString():string{
-        return `isWell: ${this.isWell}, isWumpus: ${this.isWumpus}, isSmelly: ${this.isSmelly}, isWind: ${this.isWind}, isGold: ${this.isGold}`;
+        return `isWell: ${this.isWell}, isWumpus: ${this.isWumpus}, isSmelly: ${this.isSmelly}, isWind: ${this.isWind}, isGold: ${this.isGold}, isExit: ${this.isExit}`;
     }
 }
