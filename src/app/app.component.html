@@ -28,10 +28,14 @@
             </div>
           </div>
           <div *ngIf="!personaje.isGameOver">
-            <button (click)="girarIzquierda($event)">girar hacia izquierda</button>
-            <button (click)="moverAdelante($event)">adelante</button>
-            <button (click)="dispararFlecha($event)">disparar flecha</button>
-            <button (click)="girarDerecha($event)">girar hacia derecha</button>
+            <button (click)="girarIzquierda($event)"><i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button (click)="moverAdelante($event)"><i class="fa-solid fa-arrow-up"></i>
+            </button>
+            <button (click)="girarDerecha($event)"><i class="fa-solid fa-rotate-right"></i>
+            </button>
+            <button (click)="dispararFlecha($event)">shoot
+            </button>
           </div>
         </div>
         <div class="adventure-log">

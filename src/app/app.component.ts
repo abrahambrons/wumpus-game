@@ -29,7 +29,7 @@ export class AppComponent {
   ngOnChanges(changes: SimpleChanges){
     this.crearTablero(this.incoming_data.tablero,this.incoming_data.pozos);
     let coordenada:Coordenada = this.tableroService.colocarJugador(this.tableroService.getTablero(),1,this.incoming_data.tablero);
-    this.personaje = new Jugador({posi:coordenada.i,posj:coordenada.j,rotacion:0,flechas:this.incoming_data.flechas});
+    this.personaje = new Jugador({posi:coordenada.i,posj:coordenada.j,starti:coordenada.i,startj:coordenada.j,rotacion:0,flechas:this.incoming_data.flechas,nombre:this.incoming_data.nombre});
     this.adventure_log.push(`Coordenadas Jugador: ${this.personaje.posi} y ${this.personaje.posj}`);
     this.percibir();
   }
@@ -46,7 +46,6 @@ export class AppComponent {
   }
 
   percibir(){
-    console.log(this.incoming_data);
     this.personaje.percepcion = this.tableroService.getTablero().celdas[this.personaje.posi][this.personaje.posj];
     
     this.personaje.isWallFront = false;
@@ -68,12 +67,16 @@ export class AppComponent {
     }
     if(this.personaje.percibirFlechaWumpus){
       this.personaje.percibirFlechaWumpus = false;
-      this.adventure_log.push(`El personaje percibe el grito del Wumpus luego de disparar su flecha`);
+      this.adventure_log.push(`${this.personaje.nombre} percibe el grito del Wumpus luego de disparar su flecha`);
     }
     
     this.adventure_log = this.adventure_log.concat(this.personaje.percibir());
-    this.adventure_log.push(this.personaje.isWallFront?`El personaje percibe una pared adelante`:`El camino continua adelante`);
-    if(this.personaje.isGameOver){
+    if(this.personaje.percepcion.isGold){
+      this.personaje.isGoldTaken = true;
+      this.tablero.celdas[this.personaje.posi][this.personaje.posj].isGold = false;
+    }
+    this.adventure_log.push(this.personaje.isWallFront?`${this.personaje.nombre} percibe una pared adelante`:`El camino continua adelante`);
+    if(this.personaje.isGameOver || this.personaje.isWon){
       this.adventure_log.push(`Fin del juego`);
     }
     return;
@@ -96,7 +99,7 @@ export class AppComponent {
     else if(this.personaje.rotacion == 3){
       this.personaje.posj += 1
     }
-    this.adventure_log.push(`El personaje se mueve hacia adelante`);
+    this.adventure_log.push(`${this.personaje.nombre} se mueve hacia adelante`);
     this.percibir();
     return true;
   }
@@ -114,7 +117,7 @@ export class AppComponent {
     else if(this.personaje.rotacion == 3){
       this.personaje.rotacion = 0
     }
-    this.adventure_log.push(`El personaje gira a su izquierda`);
+    this.adventure_log.push(`${this.personaje.nombre} gira a su izquierda`);
     this.percibir();
     return this;
   }
@@ -132,26 +135,27 @@ export class AppComponent {
     else if(this.personaje.rotacion == 3){
       this.personaje.rotacion = 1
     }
-    this.adventure_log.push(`El personaje gira a su derecha`);
+    this.adventure_log.push(`${this.personaje.nombre} gira a su derecha`);
     this.percibir();
     return this;
   }
 
   dispararFlecha(e:any):AppComponent{
     if(this.personaje.flechas == 0){
-      this.adventure_log.push(`El personaje no tiene mas flechas`);
+      this.adventure_log.push(`${this.personaje.nombre} no tiene mas flechas`);
       return this;
     }
     this.personaje.flechas--;
     if(this.personaje.isWallFront){
       this.personaje.percibirFlechaWumpus = false;
-      this.adventure_log.push(`El personaje oye la flecha golpear contra una pared`);
+      this.adventure_log.push(`${this.personaje.nombre} oye la flecha golpear contra una pared`);
       return this;
     }
       
     if(this.personaje.rotacion == 0){
       for(let i = this.tam_tablero-1; i > 0;i--){
         if(this.tablero.celdas[i][this.personaje.posj].isWumpus){
+          this.tablero.celdas[i][this.personaje.posj].isWumpus = false;
           this.personaje.percibirFlechaWumpus = true;
         }
       }
@@ -159,6 +163,7 @@ export class AppComponent {
     else if(this.personaje.rotacion == 1){
       for(let i = 0; i < this.tam_tablero-1;i++){
         if(this.tablero.celdas[i][this.personaje.posj].isWumpus){
+          this.tablero.celdas[i][this.personaje.posj].isWumpus = false;
           this.personaje.percibirFlechaWumpus = true;
         }
       }
@@ -166,6 +171,7 @@ export class AppComponent {
     else if(this.personaje.rotacion == 2){
       for(let i = this.tam_tablero-1; i > 0;i--){
         if(this.tablero.celdas[this.personaje.posi][i].isWumpus){
+          this.tablero.celdas[this.personaje.posi][i].isWumpus = false;
           this.personaje.percibirFlechaWumpus = true;
         }
       }
@@ -173,12 +179,13 @@ export class AppComponent {
     else if(this.personaje.rotacion == 3){
       for(let i = 0; i < this.tam_tablero-1;i++){
         if(this.tablero.celdas[this.personaje.posi][i].isWumpus){
+          this.tablero.celdas[this.personaje.posi][i].isWumpus = false;
           this.personaje.percibirFlechaWumpus = true;
         }
       }
     }
     if(!this.personaje.percibirFlechaWumpus)
-      this.adventure_log.push(`El personaje oye la flecha golpear contra una pared`);
+      this.adventure_log.push(`${this.personaje.nombre} oye la flecha golpear contra una pared`);
     return this;
   }
 }

@@ -11,8 +11,9 @@ export class Jugador {
     flechas:number = 0;
     percibirFlechaWumpus = false;
     isGameOver:boolean = false;
-    isGoldTaken:boolean = true;
-
+    isGoldTaken:boolean = false;
+    isWon:boolean = false;
+    nombre:string = "El jugador";
 
     constructor(values: Object = {}){
         Object.assign(this, values);
@@ -21,21 +22,25 @@ export class Jugador {
     percibir():string[]{
         let log_percepcion= [];
         if(this.percepcion.isGold){
-            log_percepcion.push(`El personaje percibe el brillo del oro y lo agarra`);
+            log_percepcion.push(`${this.nombre} percibe el brillo del oro y lo agarra`);
         }
         if(this.percepcion.isSmelly){
-            log_percepcion.push(`El personaje percibe un olor desagradable`);
+            log_percepcion.push(`${this.nombre} percibe un olor desagradable`);
         }
         if(this.percepcion.isWind){
-            log_percepcion.push(`El personaje percibe una ventisca cerca`);
+            log_percepcion.push(`${this.nombre} percibe una ventisca cerca`);
         }
         if(this.percepcion.isWell){
-            log_percepcion.push(`El personaje percibe un pozo y cae sobre el`);
+            log_percepcion.push(`${this.nombre} percibe un pozo y cae sobre el`);
             this.isGameOver = true;
         }
         if(this.percepcion.isWumpus){
-            log_percepcion.push(`El personaje percibe al Wumpus`);
+            log_percepcion.push(`${this.nombre} percibe al Wumpus`);
             this.isGameOver = true;
+        }
+        if(this.isGoldTaken && this.starti == this.posi && this.startj && this.posj){
+            log_percepcion.push(`${this.nombre} encuentra la salida y se lleva el oro consigo`);
+            this.isWon = true;
         }
         return log_percepcion;
     }
