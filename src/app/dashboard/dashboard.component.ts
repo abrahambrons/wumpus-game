@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
   onSubmit(f:NgForm){
@@ -20,6 +21,5 @@ export class DashboardComponent implements OnInit {
       this.parent_data = f.value;
       this.hide_menu = true;
     }
-      
   }
 }

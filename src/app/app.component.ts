@@ -46,7 +46,9 @@ export class AppComponent {
   }
 
   percibir(){
-    this.personaje.percepcion = this.tableroService.getTablero().celdas[this.personaje.posi][this.personaje.posj];
+    if(!this.tablero)
+      return;
+    this.personaje.percepcion = this.tableroService.tablero.celdas[this.personaje.posi][this.personaje.posj];
     
     this.personaje.isWallFront = false;
     if(this.personaje.rotacion == 0){
@@ -79,7 +81,6 @@ export class AppComponent {
     if(this.personaje.isGameOver || this.personaje.isWon){
       this.adventure_log.push(`Fin del juego`);
     }
-    return;
   }
 
   moverAdelante(e:any):boolean{
@@ -141,6 +142,8 @@ export class AppComponent {
   }
 
   dispararFlecha(e:any):AppComponent{
+    if(!this.tablero)
+      return this;
     if(this.personaje.flechas == 0){
       this.adventure_log.push(`${this.personaje.nombre} no tiene mas flechas`);
       return this;

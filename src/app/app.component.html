@@ -1,9 +1,10 @@
 <div class="section">
   <div class="container">
     <div class="content">
-      <div class="columns">
+      <span>wumpus-game app is running!</span>
+      <div class="columns" *ngIf="tablero">
         <div class="column">
-          <table class="">
+          <table>
             <tr *ngFor="let row of tablero.celdas; let i = index">
               <td *ngFor="let col of row; let j = index"
               class="" id="t{{i}}{{j}}">
